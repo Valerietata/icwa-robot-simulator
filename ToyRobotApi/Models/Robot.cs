@@ -44,7 +44,7 @@ namespace ToyRobotApi.Models
             return x >= 0 && x < tableSize && y >= 0 && y < tableSize;
         }
 
-        // Moves the robot one unit in the current direction if possible
+        // Moves the robot one unit in the current direction if not fall
         public void Move()
         {
             if (!Placed) return;
@@ -76,6 +76,43 @@ namespace ToyRobotApi.Models
                 Y = newY;
             }
         }
-    
+
+        // Rotates the robot 90 degrees left
+        public void Left()
+        {
+            if (!Placed) return;
+            Facing = LeftDirection(Facing.Value);
+        }
+
+        // Rotates the robot 90 degrees right
+        public void Right()
+        {
+            if (!Placed) return;
+            Facing = RightDirection(Facing.Value);
+        }
+
+        private Direction LeftDirection(Direction current)
+        {
+            return current switch
+            {
+                Direction.NORTH => Direction.WEST,
+                Direction.WEST => Direction.SOUTH,
+                Direction.SOUTH => Direction.EAST,
+                Direction.EAST => Direction.NORTH,
+                _ => current
+            };
+        }
+
+        private Direction RightDirection(Direction current)
+        {
+            return current switch
+            {
+                Direction.NORTH => Direction.EAST,
+                Direction.EAST => Direction.SOUTH,
+                Direction.SOUTH => Direction.WEST,
+                Direction.WEST => Direction.NORTH,
+                _ => current
+            };
+        }
     }
 }
