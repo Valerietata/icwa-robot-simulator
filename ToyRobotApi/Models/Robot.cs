@@ -43,6 +43,39 @@ namespace ToyRobotApi.Models
         {
             return x >= 0 && x < tableSize && y >= 0 && y < tableSize;
         }
-        
+
+        // Moves the robot one unit in the current direction if possible
+        public void Move()
+        {
+            if (!Placed) return;
+
+            int newX = X.Value;
+            int newY = Y.Value;
+
+            // Calculate new position based on current direction
+            switch (Facing.Value)
+            {
+                case Direction.NORTH:
+                    newY++;
+                    break;
+                case Direction.SOUTH:
+                    newY--;
+                    break;
+                case Direction.EAST:
+                    newX++;
+                    break;
+                case Direction.WEST:
+                    newX--;
+                    break;
+            }
+
+            // Only move if the new position is valid
+            if (IsValidPosition(newX, newY))
+            {
+                X = newX;
+                Y = newY;
+            }
+        }
+    
     }
 }
