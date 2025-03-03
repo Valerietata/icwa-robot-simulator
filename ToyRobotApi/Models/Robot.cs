@@ -1,7 +1,7 @@
 using System;
 namespace ToyRobotApi.Models
 {
-    //Set up the basic Direction enum for the robot    
+    // Set up the basic Direction enum for the robot
     public enum Direction
     {
         NORTH,
@@ -12,7 +12,7 @@ namespace ToyRobotApi.Models
 
     public class Robot
     {
-        private readonly int tableSize;
+        private readonly int tableSize;    
         // Track if the robot has been placed on the board
         public bool Placed { get; private set; }
         // Current position and orientation
@@ -25,6 +25,7 @@ namespace ToyRobotApi.Models
             this.tableSize = tableSize;
             Placed = false;
         }
+
         // Added Place method to position the robot on the board
         public void Place(int x, int y, string facingStr)
         {
@@ -44,14 +45,14 @@ namespace ToyRobotApi.Models
             return x >= 0 && x < tableSize && y >= 0 && y < tableSize;
         }
 
-        // Moves the robot one unit in the current direction if not fall
+        // Moves the robot one unit in the current direction if possible
         public void Move()
         {
             if (!Placed) return;
-
+            
             int newX = X.Value;
             int newY = Y.Value;
-
+            
             // Calculate new position based on current direction
             switch (Facing.Value)
             {
@@ -68,7 +69,7 @@ namespace ToyRobotApi.Models
                     newX--;
                     break;
             }
-
+            
             // Only move if the new position is valid
             if (IsValidPosition(newX, newY))
             {
@@ -96,10 +97,10 @@ namespace ToyRobotApi.Models
             return current switch
             {
                 Direction.NORTH => Direction.WEST,
-                Direction.WEST => Direction.SOUTH,
+                Direction.WEST  => Direction.SOUTH,
                 Direction.SOUTH => Direction.EAST,
-                Direction.EAST => Direction.NORTH,
-                _ => current
+                Direction.EAST  => Direction.NORTH,
+                _               => current
             };
         }
 
@@ -108,11 +109,18 @@ namespace ToyRobotApi.Models
             return current switch
             {
                 Direction.NORTH => Direction.EAST,
-                Direction.EAST => Direction.SOUTH,
+                Direction.EAST  => Direction.SOUTH,
                 Direction.SOUTH => Direction.WEST,
-                Direction.WEST => Direction.NORTH,
-                _ => current
+                Direction.WEST  => Direction.NORTH,
+                _               => current
             };
+        }
+
+        // Returns the current position and orientation of the robot (for API)
+        public string Report()
+        {
+            if (!Placed) return "Robot not placed";
+            return $"{X.Value}, {Y.Value}, {Facing.Value}";
         }
     }
 }
