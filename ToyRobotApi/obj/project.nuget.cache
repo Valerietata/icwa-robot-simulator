@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "gt7iztFvQ70=",
+  "success": true,
+  "projectFilePath": "/Users/tata/icwa-robot-simulator/ToyRobotApi/ToyRobotApi.csproj",
+  "expectedPackageFiles": [
+    "/Users/tata/.nuget/packages/microsoft.aspnetcore.openapi/9.0.2/microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
+    "/Users/tata/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
